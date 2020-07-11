@@ -10,7 +10,7 @@ const App = () => {
     <Router>
       <Switch>
         <Route path="/builder">
-          <Scene>{(props) => <Builder {...props} />}</Scene>
+          {/* <Scene>{(props) => <Builder {...props} />}</Scene> */}
         </Route>
         <Route path="/">
           <Home />

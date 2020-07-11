@@ -1,3 +1,6 @@
+import ReactDOM from "react-dom";
+import React, { useRef, useState } from "react";
+import { Canvas, useFrame } from "react-three-fiber";
 function Box(props) {
   // This reference will give us direct access to the mesh
   const mesh = useRef();
@@ -14,7 +17,10 @@ function Box(props) {
       {...props}
       ref={mesh}
       scale={active ? [1.5, 1.5, 1.5] : [1, 1, 1]}
-      onClick={(e) => setActive(!active)}
+      onClick={(e) => {
+        console.log(e);
+        setActive(!active);
+      }}
       onPointerOver={(e) => setHover(true)}
       onPointerOut={(e) => setHover(false)}
     >
@@ -26,3 +32,4 @@ function Box(props) {
     </mesh>
   );
 }
+export default Box;
