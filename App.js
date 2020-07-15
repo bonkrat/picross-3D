@@ -1,16 +1,20 @@
-import React, { useEffect } from "react";
+import { Box } from "drei";
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import * as THREE from "three";
 import Home from "./Home";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import buildCube from "./puzzles/default";
 import Scene from "./Scene";
 import Puzzle from "./Puzzle";
-import Builder from "./builder";
 
 const App = () => {
   return (
     <Router>
       <Switch>
         <Route path="/builder">
-          {/* <Scene>{(props) => <Builder {...props} />}</Scene> */}
+          <Scene>
+            <Puzzle puzzle={buildCube(4)} />
+          </Scene>
         </Route>
         <Route path="/">
           <Home />

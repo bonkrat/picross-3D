@@ -1,7 +1,6 @@
-import ReactDOM from "react-dom";
-import React, { useRef, useState } from "react";
-import { Canvas, useFrame } from "react-three-fiber";
-import { Stars } from "drei";
+import { OrbitControls, Stars } from "drei";
+import React, { useState } from "react";
+import { Canvas } from "react-three-fiber";
 
 const Scene = ({ children }) => {
   return (
@@ -18,6 +17,7 @@ const Scene = ({ children }) => {
         intensity={0.5}
         position={[-1, -1.5, -1]}
       />
+      <OrbitControls />
       {children}
       <Stars />
     </Canvas>
