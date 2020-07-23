@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "parcel index.html",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --watch"
   },
   "keywords": [],
   "author": "",
@@ -18,9 +18,15 @@
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-three-fiber": "^4.2.12",
+    "styled-components": "^5.1.1",
     "three": "^0.118.3"
   },
   "devDependencies": {
+    "@babel/core": "^7.10.5",
+    "@babel/preset-env": "^7.10.4",
+    "babel-jest": "^26.1.0",
+    "jest": "^26.1.0",
+    "parcel": "^1.12.4",
     "parcel-bundler": "^1.12.4"
   }
 }

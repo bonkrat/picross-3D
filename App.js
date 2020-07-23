@@ -1,20 +1,14 @@
-import { Box } from "drei";
-import React from "react";
+import React, { Suspense } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import * as THREE from "three";
+import Builder from "./Builder";
 import Home from "./Home";
-import buildCube from "./puzzles/default";
-import Scene from "./Scene";
-import Puzzle from "./Puzzle";
 
 const App = () => {
   return (
     <Router>
       <Switch>
         <Route path="/builder">
-          <Scene>
-            <Puzzle puzzle={buildCube(4)} />
-          </Scene>
+          <Builder />
         </Route>
         <Route path="/">
           <Home />

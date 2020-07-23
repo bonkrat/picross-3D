@@ -1,25 +1,17 @@
 import { OrbitControls, Stars } from "drei";
 import React, { useState } from "react";
 import { Canvas } from "react-three-fiber";
+import * as THREE from "three";
 
 const Scene = ({ children }) => {
   return (
-    <Canvas>
-      <hemisphereLight
-        skyColor={0xffffff}
-        groundColor={0x000088}
-        position={[-1, 1.5, 1]}
-      />
+    <Canvas camera={{ position: [4, 4, 4] }}>
+      <ambientLight />
+      <pointLight position={[10, 10, 10]} />
 
-      <hemisphereLight
-        skyColor={0xffffff}
-        groundColor={0x880000}
-        intensity={0.5}
-        position={[-1, -1.5, -1]}
-      />
       <OrbitControls />
       {children}
-      <Stars />
+      {/* <Stars /> */}
     </Canvas>
   );
 };
