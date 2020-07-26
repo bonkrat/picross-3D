@@ -11,6 +11,7 @@ import {
 import createRoundedBoxGeometry from "./createRoundedBox";
 import buildCube from "./puzzles/default";
 import { some, times } from "lodash";
+import { useFrame } from "react-three-fiber";
 
 const cubeColor = "#998E8E";
 // const canvas = document.createElement("canvas");
@@ -30,6 +31,7 @@ const offset = (amount - 1) / 2;
 const geometry = new THREE.BoxBufferGeometry(1);
 
 const Puzzle = ({ puzzle }) => {
+  // useFrame((state) => console.log(state));
   // A merged shape of the puzzle and the default, to fill in cubes for the user to solve
   const mergedShape = buildCube(4).shape.map((coords, index) =>
     some(puzzle.shape, coords)
@@ -55,6 +57,9 @@ const Puzzle = ({ puzzle }) => {
    */
   const setCube = (cube) => {
     const prevCube = shape.filter((v) => vectorsEqual(v, cube))[0];
+    console.log("prevCube", prevCube);
+    console.log("prevCube.clue", prevCube.clue);
+
     const mergedCube = {
       ...prevCube,
       clue: {
@@ -62,12 +67,21 @@ const Puzzle = ({ puzzle }) => {
         ...cube.clue,
       },
     };
-    setShape([
-      ...shape.filter((v) => !vectorsEqual(v, cube)),
+
+    setShape((prevShape) => [
+      ...prevShape.filter((v) => !vectorsEqual(v, cube)),
       {
         ...mergedCube,
       },
     ]);
+  };
+
+  /**
+   *  Update multiple cubes at once
+   * @param {*} cubes An array of updated cubes
+   */
+  const setCubes = (cubes) => {
+    cubes.map((cube) => setCube(cube));
   };
 
   // TODO Fix this, useFrame
@@ -98,12 +112,22 @@ const Puzzle = ({ puzzle }) => {
         // setShape([...shape, buildBox(e.intersections[0])]);
 
         // Adds a clue number
-        setCube({
-          x: position.x,
-          y: position.y,
-          z: position.z,
-          clue,
-        });
+        const constantCoords = ["x", "y", "z"].filter(
+          (c) => c !== Object.keys(clue.face)[0]
+        );
+
+        setCubes(
+          mergedShape
+            .filter(
+              (cube) =>
+                cube[constantCoords[0]] === position[constantCoords[0]] &&
+                cube[constantCoords[1]] === position[constantCoords[1]]
+            )
+            .map((cube) => ({
+              ...cube,
+              clue,
+            }))
+        );
       } else {
         setShape([
           ...shape.filter(
