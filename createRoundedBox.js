@@ -1,5 +1,6 @@
 import * as THREE from "three";
 
+// const geometry = createRoundedBoxGeometry(1, 1, 1, 1 / 9, 4);
 export default function createBoxWithRoundedEdges(
   width,
   height,

@@ -1,33 +1,12 @@
-import React, { useMemo, useState, useEffect } from "react";
+import { some } from "lodash";
+import React, { useState } from "react";
 import * as THREE from "three";
-import {
-  buildBox,
-  vectorsEqual,
-  getClue,
-  getClueCanvas,
-  getTexture,
-  buildFaceMeshes,
-} from "./utils";
-import createRoundedBoxGeometry from "./createRoundedBox";
 import buildCube from "./puzzles/default";
-import { some, times } from "lodash";
-import { useFrame } from "react-three-fiber";
+import { buildFaceMeshes, getClue, vectorsEqual } from "./utils";
 
-const cubeColor = "#998E8E";
-// const canvas = document.createElement("canvas");
-// canvas.width = 200;
-// canvas.height = 200;
-// const ctx = canvas.getContext("2d");
-// ctx.fillStyle = "white";
-// ctx.fillRect(0, 0, canvas.width, canvas.height);
-// ctx.fillStyle = cubeColor;
-// ctx.fillRect(4, 4, canvas.width - 8, canvas.height - 8);
-
-// const defaultTexture = new THREE.CanvasTexture(ctx.canvas);
-
+const cubeColor = "#7A93AC";
 const amount = 4;
 const offset = (amount - 1) / 2;
-// const geometry = createRoundedBoxGeometry(1, 1, 1, 1 / 9, 4);
 const geometry = new THREE.BoxBufferGeometry(1);
 
 const Puzzle = ({ puzzle }) => {
@@ -57,15 +36,11 @@ const Puzzle = ({ puzzle }) => {
    */
   const setCube = (cube) => {
     const prevCube = shape.filter((v) => vectorsEqual(v, cube))[0];
-    console.log("prevCube", prevCube);
-    console.log("prevCube.clue", prevCube.clue);
 
     const mergedCube = {
       ...prevCube,
-      clue: {
-        ...prevCube.clue,
-        ...cube.clue,
-      },
+      ...cube,
+      clues: [...cube.clues, ...(prevCube?.clues ? prevCube.clues : [])],
     };
 
     setShape((prevShape) => [
@@ -123,10 +98,12 @@ const Puzzle = ({ puzzle }) => {
                 cube[constantCoords[0]] === position[constantCoords[0]] &&
                 cube[constantCoords[1]] === position[constantCoords[1]]
             )
-            .map((cube) => ({
-              ...cube,
-              clue,
-            }))
+            .map((cube) => {
+              return {
+                ...cube,
+                clues: [clue],
+              };
+            })
         );
       } else {
         setShape([
@@ -140,28 +117,13 @@ const Puzzle = ({ puzzle }) => {
 
   return (
     <group onClick={onClick} onPointerOut={onPointerOut}>
-      {shape.map(({ x, y, z, id, keep, clue }) => {
+      {shape.map(({ x, y, z, id, keep, clues = [] }) => {
         let color = cubeColor;
         if (hoveredObj && vectorsEqual(hoveredObj.position, { x, y, z })) {
           color = "skyblue";
         }
-        const defaultTexture = getTexture(color);
 
-        let faces;
-        if (clue) {
-          const clueTexture = new THREE.CanvasTexture(
-            getClueCanvas(clue.number, color).canvas
-          );
-          faces = buildFaceMeshes(clue.face, clueTexture, defaultTexture);
-        }
-
-        const defaultMaterial = new THREE.MeshStandardMaterial({
-          map: defaultTexture,
-          // transparent: !keep,
-          // opacity: keep ? 1 : 0.2,
-        });
-
-        const material = clue ? faces : defaultMaterial;
+        const material = buildFaceMeshes(clues, color);
 
         return (
           <mesh
