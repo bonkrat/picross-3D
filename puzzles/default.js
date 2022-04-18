@@ -12,6 +12,7 @@ const buildCube = (amount) => {
             x: offset - x,
             y: offset - y,
             z: offset - z,
+            keep: true,
           },
         ];
       }
@@ -20,7 +21,10 @@ const buildCube = (amount) => {
 
   return {
     name: "default",
-    shape,
+    shape: shape.map((cube, id) => ({
+      ...cube,
+      id,
+    })),
   };
 };
 

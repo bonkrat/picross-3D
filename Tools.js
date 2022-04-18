@@ -13,15 +13,21 @@ const StyledTools = styled.div`
   align-items: center;
 `;
 
-const Tools = ({ onGenerateNumbers }) => (
-  <StyledTools>
-    <div></div>
-    <div>
-      <input type="text" name="name" placeholder="name" />
-    </div>
-    <button onClick={onGenerateNumbers}>Generate Numbers</button>
-    <button>Save Puzzle</button>
-  </StyledTools>
-);
+const Tools = ({ onSaveShape, onShowAnswer, mode, setMode }) => {
+  return (
+    <StyledTools>
+      <div></div>
+      <div>
+        <input type="text" name="name" placeholder="name" />
+      </div>
+      <select onChange={setMode}>
+        <option value="create">Create</option>
+        <option value="clue">Paint Clues</option>"
+        <option value="paint">Paint</option>
+      </select>
+      <button onClick={onSaveShape}>Save Shape</button>
+    </StyledTools>
+  );
+};
 
 export default Tools;

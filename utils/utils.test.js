@@ -1,4 +1,4 @@
-import { getNumber } from "./utils";
+import { getClue } from ".";
 
 const testChairPuzzle = [
   { x: 1.5, y: 1.5, z: 1.5, keep: false, id: 0 },
@@ -70,11 +70,16 @@ const testChairPuzzle = [
 describe("getNumber", () => {
   it("generates the number of cubes in that row", () => {
     expect(
-      getNumber(
+      getClue(
         testChairPuzzle,
         { x: -1.5, y: 0.5, z: 1.5 },
         { x: 0, y: 0, z: 1 }
       )
-    ).toBe(3);
+    ).toMatchObject({
+      face: {
+        z: 1,
+      },
+      number: 3,
+    });
   });
 });

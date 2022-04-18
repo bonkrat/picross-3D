@@ -120,7 +120,7 @@ export const getClueTexture = (text, color) => {
   const { canvas, ctx } = getCanvasContext(color, text);
   ctx.font = "128px Helvetica";
 
-  ctx.fillStyle = "#171A21";
+  ctx.fillStyle = "white";
   ctx.fillText(text, canvas.width / 2 - 35, canvas.height / 2 + 40);
   return new THREE.CanvasTexture(ctx.canvas);
 };
