@@ -1,13 +1,12 @@
-# TODO
+# Picross 3D
 
-- Audit code and clean it up.
-  - (https://github.com/react-spring/react-three-fiber)
-  - https://github.com/react-spring/drei
-  - Check out the starfield component, the box component, etc.
-- Figure out the `amount` variable, best way to pass it around.
-- Static nav
-- Add back export
-- game logic
-- Materials for numbers for hints
--
-- ability to paint
+A work-in-progress 3D picross game, similar to Nintendo's Picross 3D. Probably won't ever come back to this but was a fun experiments as an introduction to 3D web graphics.
+
+## Stack
+- Three.js for creating 3D graphics in the browser.
+- React for web components.
+- `react-three-fiber` for building three.js components with JSX.
+- `drei` for react-three-fiber helper components.
+- styled-components for CSS styling.
+- Node, NPM, Babel, and Parcel for build tools.
+- `jest` for testing.
