@@ -2,6 +2,8 @@
 
 A work-in-progress 3D picross game, similar to Nintendo's Picross 3D. Probably won't ever come back to this but was a fun experiments as an introduction to 3D web graphics.
 
+https://user-images.githubusercontent.com/1292831/163862745-38b9d2b6-629f-4928-adbb-acbeeb6b0341.mp4
+
 ## Stack
 - Three.js for creating 3D graphics in the browser.
 - React for web components.
