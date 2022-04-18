@@ -4,14 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "parcel index.html",
+    "start": "parcel src/index.html",
     "test": "jest --watch"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "chair": "0.0.0",
     "drei": "0.0.60",
     "lodash": "^4.17.19",
     "pattern.css": "^1.0.0",
